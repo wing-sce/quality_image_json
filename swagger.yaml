@@ -28,6 +28,18 @@ paths:
           description: "successful operation"
           schema:
             $ref: "#/definitions/blur"
+  /tag/verification:
+    post:
+      tags:
+      - "tag"
+      summary: "JSON documentation for tag output."
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/tag"
 definitions:
   quadrants:
     type: "object"
@@ -102,7 +114,7 @@ definitions:
     properties:
       image_name:
         type: string
-        description: "Name of the image."
+        description: "Name of the image file."
       model_status:
         type: string
         enum:
@@ -114,4 +126,18 @@ definitions:
         description: "The image is first cropped to the area of interest. The percent represented here is the percent blur on the cropped image."
       cropped_output:
         type: string
-        description: "The name (maybe location?) of the cropped image so we can validate if the blur_percentage number does not seem right."
+        description: "The name (maybe location?) of the cropped image so we can visually inspect the object detection results."
+  tag:
+    type: "object"
+    required:
+      - image_name
+    properties:
+      image_name:
+        type: string
+        description: "Name of the image file."
+      pole_file_name:
+        type: string
+        description: "Pole tag based off of how the file was named."
+      pole_tag_read:
+        type: string
+        description: "String returned by the model."
